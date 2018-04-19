@@ -4,6 +4,11 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,9 +16,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
-// Create a new class, Mountain, that can hold your JSON data
+// Create a new class, com.example.brom.listviewjsonapp.Mountain, that can hold your JSON data
 
 // Create a ListView as in "Assignment 1 - Toast and ListView"
 
@@ -30,6 +38,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final Mountain m = new Mountain("Fuji", "Japan", 3776);
+
+        String[] rawData = {"Leif","Ulla","Kjell"};
+        List<String> listData = new ArrayList<String>(Arrays.asList(rawData));
+
+        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),R.layout.textview_for_list,
+                R.id.item_textView, listData);
+
+        ListView myListView = (ListView)findViewById(R.id.my_listView);
+        myListView.setAdapter(adapter);
+
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //Toast.makeText(getApplicationContext(), listData, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private class FetchData extends AsyncTask<Void,Void,String>{
@@ -45,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 // Construct the URL for the Internet service
-                URL url = new URL("_ENTER_THE_URL_TO_THE_PHP_SERVICE_SERVING_JSON_HERE_");
+                URL url = new URL("http://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
 
                 // Create the request to the PHP-service, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -100,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             // the un-parsed JSON string or is null if we had an IOException during the fetch.
 
             // Implement a parsing code that loops through the entire JSON and creates objects
-            // of our newly created Mountain class.
+            // of our newly created com.example.brom.listviewjsonapp.Mountain class.
         }
     }
 }
