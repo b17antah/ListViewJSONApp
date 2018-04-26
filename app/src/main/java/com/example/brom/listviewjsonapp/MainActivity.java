@@ -13,6 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,16 +53,17 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),R.layout.textview_for_list,
                 R.id.item_textView, listData);
 
+
+
         ListView myListView = (ListView)findViewById(R.id.my_listView);
         myListView.setAdapter(adapter);
-
-        new FetchData().execute();
 
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 //Toast.makeText(getApplicationContext(), listData, Toast.LENGTH_LONG).show();
+
             }
         });
     }
@@ -73,8 +77,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Log.d("testMenuStuff", "testme: "+id);
 
         if (id == R.id.action_settings) {
+            Log.d("testMenuStuff", "testme: ");
+            new FetchData().execute();
             return true;
         }
 
@@ -150,6 +157,19 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String o) {
             super.onPostExecute(o);
             Log.d("kot", "DataFetched:"+o);
+
+            try {
+
+                // När vi har ett JSONObjekt kan vi hämta ut dess beståndsdelar
+                JSONArray a = new JSONArray(o);
+
+                for(int each = 0; each < a.length(); each++) {
+                    Log.d("kot", "Mountainfound:"+each);
+                }
+
+            } catch (JSONException e) {
+                Log.e("brom","E:"+e.getMessage());
+            }
             // This code executes after we have received our data. The String object o holds
             // the un-parsed JSON string or is null if we had an IOException during the fetch.
 
