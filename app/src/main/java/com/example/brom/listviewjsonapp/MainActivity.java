@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),R.layout.textview_for_list,
                 R.id.item_textView, listData);
 
-        new FetchData().execute();
-
         ListView myListView = (ListView)findViewById(R.id.my_listView);
         myListView.setAdapter(adapter);
 
@@ -168,7 +166,16 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("kot", "Mountainfound:"+each);
                     JSONObject tillfalle = a.getJSONObject(each);
                     String getId = tillfalle.getString("ID");
+                    String getName = tillfalle.getString("name");
+                    String getType = tillfalle.getString("type");
+                    String getCompany = tillfalle.getString("company");
+                    String getLocation = tillfalle.getString("location");
+                    String getCategory = tillfalle.getString("category");
+                    int getSize = tillfalle.getInt("size");
+                    int getCost = tillfalle.getInt("cost");
                     Log.d("getID", "ID: "+getId);
+                    Log.d("getLocation", "Location: "+getLocation);
+                    Log.d("getSize", "Size: "+getSize);
                 }
 
             } catch (JSONException e) {
