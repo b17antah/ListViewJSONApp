@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),R.layout.textview_for_list,
                 R.id.item_textView, listData);
 
-
+        new FetchData().execute();
 
         ListView myListView = (ListView)findViewById(R.id.my_listView);
         myListView.setAdapter(adapter);
@@ -165,10 +166,14 @@ public class MainActivity extends AppCompatActivity {
 
                 for(int each = 0; each < a.length(); each++) {
                     Log.d("kot", "Mountainfound:"+each);
+                    JSONObject tillfalle = a.getJSONObject(each);
+                    String getId = tillfalle.getString("ID");
+                    Log.d("getID", "ID: "+getId);
                 }
 
             } catch (JSONException e) {
                 Log.e("brom","E:"+e.getMessage());
+
             }
             // This code executes after we have received our data. The String object o holds
             // the un-parsed JSON string or is null if we had an IOException during the fetch.
