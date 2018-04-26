@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
                 for(int each = 0; each < a.length(); each++) {
                     Log.d("kot", "Mountainfound:"+each);
+
                     JSONObject tillfalle = a.getJSONObject(each);
                     String getId = tillfalle.getString("ID");
                     String getName = tillfalle.getString("name");
@@ -173,12 +174,19 @@ public class MainActivity extends AppCompatActivity {
                     String getCategory = tillfalle.getString("category");
                     int getSize = tillfalle.getInt("size");
                     int getCost = tillfalle.getInt("cost");
-                    Log.d("getID", "ID: "+getId);
-                    Log.d("getLocation", "Location: "+getLocation);
-                    Log.d("getSize", "Size: "+getSize);
-                }
 
-            } catch (JSONException e) {
+                    Log.d("getID", "ID: "+getId);
+                    Log.d("getName", "Name: "+getName);
+                    Log.d("getType", "Type: "+getType);
+                    Log.d("getCompany", "Company: "+getCompany);
+                    Log.d("getLocation", "Location: "+getLocation);
+                    Log.d("getCategory", "ID: "+getCategory);
+                    Log.d("getSize", "Size: "+getSize);
+                    Log.d("getCost", "Cost: "+getCost);
+                }
+            }
+
+            catch (JSONException e) {
                 Log.e("brom","E:"+e.getMessage());
 
             }
