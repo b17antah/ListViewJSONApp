@@ -41,6 +41,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private List<Mountain> listMountain = new ArrayList<Mountain>();
+    private ArrayAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
         String[] rawData = {"Leif","Ulla","Kjell"};
         List<String> listData = new ArrayList<String>(Arrays.asList(rawData));
 
-        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),R.layout.textview_for_list,
-                R.id.item_textView, listData);
+        adapter = new ArrayAdapter(getApplicationContext(),R.layout.textview_for_list,
+                R.id.item_textView, listMountain);
 
         ListView myListView = (ListView)findViewById(R.id.my_listView);
         myListView.setAdapter(adapter);
@@ -79,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d("testMenuStuff", "testme: "+id);
 
         if (id == R.id.action_settings) {
-            Log.d("testMenuStuff", "testme: ");
-            new FetchData().execute();
             return true;
         }
 
@@ -183,6 +184,9 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("getCategory", "ID: "+getCategory);
                     Log.d("getSize", "Size: "+getSize);
                     Log.d("getCost", "Cost: "+getCost);
+
+                    Mountain testMountain = new Mountain(getName, getLocation, getSize);
+                    adapter.add(testMountain);
                 }
             }
 
