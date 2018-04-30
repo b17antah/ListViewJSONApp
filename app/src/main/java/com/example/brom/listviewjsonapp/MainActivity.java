@@ -51,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
         final Mountain m = new Mountain("Fuji", "Japan", 3776);
 
-        String[] rawData = {"Leif","Ulla","Kjell"};
-        List<String> listData = new ArrayList<String>(Arrays.asList(rawData));
-
         adapter = new ArrayAdapter(getApplicationContext(),R.layout.textview_for_list,
                 R.id.item_textView, listMountain);
 
@@ -64,10 +61,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                //Toast.makeText(getApplicationContext(), listData, Toast.LENGTH_LONG).show();
+                Mountain des = (Mountain)adapter.getItem(position);
+
+                Toast.makeText(getApplicationContext(), des.mountainInfo(), Toast.LENGTH_LONG).show();
 
             }
         });
+
+        new FetchData().execute();
     }
 
     @Override
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_refresh) {
+            adapter.clear();
             new FetchData().execute();
             return true;
         }

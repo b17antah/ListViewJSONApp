@@ -17,7 +17,7 @@ public class Mountain {
 
     public String toString() { return name; }
 
-    public String info() {
+    public String mountainInfo() {
         String str=name;
         str+=" is located in ";
         str+=location;
